@@ -11,7 +11,7 @@ public class AppMain {
         System.out.println();
 
         List<String> fileNames = new ArrayList<>();
-        fileNames.add("unitOneWords.txt");
+        fileNames.add("C:\\Users\\david\\Desktop\\languageLearner\\unitOneWords");
 
         List<Term> termList = Utility.readTermsFromFiles(fileNames, "SEE_FOREIGN");
         LanguageLearner languageLearner = new LanguageLearner(10, 6, 2, termList);

@@ -8,6 +8,7 @@ public class AppMain {
         System.out.println("================");
         System.out.println("LANGUAGE LEARNER");
         System.out.println("================");
+        System.out.println();
 
         List<String> fileNames = new ArrayList<>();
         fileNames.add("unitOneWords.txt");

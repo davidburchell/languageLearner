@@ -39,23 +39,25 @@ public class LanguageLearner {
 
         List<Term> correctTerms = new ArrayList<>();
         List<Term> incorrectTerms = new ArrayList<>();
+        int longestTerm = 0;
         for(Term term : terms){
             if(userTranslation.contains(term.getTranslatedMeaning())){
                 correctTerms.add(term);
             } else {
                 incorrectTerms.add(term);
             }
+            longestTerm = Math.max(longestTerm, Math.max(term.getTranslatedMeaning().length(), term.getUntranslatedMeaning().length()));
         }
 
         result += "correct : " + correctTerms.size() + "\n";
         result += "incorrect : " + incorrectTerms.size() + "\n\n";
 
         for(Term correct : correctTerms){
-            result += correct + "\n";
+            result += correct.format(longestTerm+1) + "\n";
         }
         result += "\n";
         for(Term incorrect : incorrectTerms){
-            result += incorrect + "\n";
+            result += incorrect.format(longestTerm+1) + "\n";
         }
         return result;
     }

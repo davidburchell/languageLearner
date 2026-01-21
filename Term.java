@@ -12,9 +12,10 @@ public class Term {
         this.learningMode = learningMode;
     }
 
-    public String toString(){
-        String english = String.format("%-15s", this.englishMeaning);
-        String foreign = String.format("%-20s", this.foreignWord);
+    public String format(int spacing){
+        String formatSpace = "%-" + spacing + "s";
+        String english = String.format(formatSpace, this.englishMeaning);
+        String foreign = String.format(formatSpace, this.foreignWord);
         return english + " ---- " + foreign;
     }
 

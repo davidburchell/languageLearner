@@ -53,11 +53,15 @@ public class LanguageLearner {
         result += "incorrect : " + incorrectTerms.size() + "\n\n";
 
         for(Term correct : correctTerms){
-            result += correct.format(longestTerm+1) + "\n";
+            result += Utility.ANSI_GREEN_BACKGROUND + Utility.ANSI_BLACK + Utility.ANSI_BOLD;
+            result += correct.format(longestTerm+1);
+            result += Utility.ANSI_RESET + "\n";
         }
         result += "\n";
         for(Term incorrect : incorrectTerms){
-            result += incorrect.format(longestTerm+1) + "\n";
+            result += Utility.ANSI_RED_BACKGROUND + Utility.ANSI_BLACK + Utility.ANSI_BOLD;
+            result += incorrect.format(longestTerm+1);
+            result += Utility.ANSI_RESET + "\n";
         }
         return result;
     }

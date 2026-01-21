@@ -16,7 +16,7 @@ public class Term {
         String formatSpace = "%-" + spacing + "s";
         String english = String.format(formatSpace, this.englishMeaning);
         String foreign = String.format(formatSpace, this.foreignWord);
-        return english + " ---- " + foreign;
+        return " " + english + " ---- " + foreign;
     }
 
     public String getUntranslatedMeaning(){

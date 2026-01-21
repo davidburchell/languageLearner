@@ -6,6 +6,13 @@ import java.util.Scanner;
 
 public class Utility {
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BOLD = "\u001b[1m";
+
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+
     public static List<Term> readTermsFromFiles(List<String> fileNames, String learningMode){
         List<Term> terms = new ArrayList<>();
         for(int lcv = 0; lcv < fileNames.size(); lcv ++){

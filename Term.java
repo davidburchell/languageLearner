@@ -12,7 +12,13 @@ public class Term {
         this.learningMode = learningMode;
     }
 
-    public String getUserVisible(){
+    public String toString(){
+        String english = String.format("%-10s", this.englishMeaning);
+        String foreign = String.format("%-10s", this.foreignWord);
+        return english + " ---- " + foreign;
+    }
+
+    public String getUntranslatedMeaning(){
         if(learningMode.equals("SEE_FOREIGN")){
             return this.foreignWord;
         }

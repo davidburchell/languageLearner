@@ -63,4 +63,8 @@ public class Term {
     public void setLearningMode(String learningMode) {
         this.learningMode = learningMode;
     }
+
+    public boolean equals(Term other){
+        return (this.englishMeaning.equals(other.getEnglishMeaning()) && this.foreignWord.equals(other.getForeignWord()));
+    }
 }

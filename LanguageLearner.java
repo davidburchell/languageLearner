@@ -10,6 +10,11 @@ public class LanguageLearner {
     private int minSentenceLength;
     private List<Term> termList;
 
+    private List<Term> guessedIncorrect;
+    private List<Term> guessedCorrect;
+    private final double replayIncorrectProbability = 0.75;
+    private final double replayCorrectProbability = 0.25;
+
     private Random randomNumber;
 
     public LanguageLearner(int roundsToRun, int maxSentenceLength, int minSentenceLength, List<Term> termList) {
@@ -17,6 +22,9 @@ public class LanguageLearner {
         this.maxSentenceLength = maxSentenceLength;
         this.minSentenceLength = minSentenceLength;
         this.termList = termList;
+
+        this.guessedIncorrect = new ArrayList<>();
+        this.guessedCorrect = new ArrayList<>();
 
         randomNumber = new Random();
     }
@@ -43,9 +51,14 @@ public class LanguageLearner {
         for(Term term : terms){
             if(userTranslation.contains(term.getTranslatedMeaning())){
                 correctTerms.add(term);
+                if(!guessedCorrect.contains(term)){
+                    guessedCorrect.add(term);
+                }
             } else {
                 incorrectTerms.add(term);
+                guessedIncorrect.add(term);
             }
+            termList.remove(term);
             longestTerm = Math.max(longestTerm, Math.max(term.getTranslatedMeaning().length(), term.getUntranslatedMeaning().length()));
         }
 
@@ -85,8 +98,26 @@ public class LanguageLearner {
         List<Term> randomTermTest = new ArrayList<>();
         int sentenceLength = randomNumber.nextInt(maxSentenceLength - minSentenceLength + 1) + minSentenceLength;
         for(int lcv = 0; lcv < sentenceLength; lcv ++){
-            int randomTermIndex = randomNumber.nextInt(termList.size());
-            randomTermTest.add(termList.get(randomTermIndex));
+            boolean addIncorrectTerm = (randomNumber.nextDouble(1) < replayIncorrectProbability
+                                        && !guessedIncorrect.isEmpty());
+            boolean addCorrectTerm = (randomNumber.nextDouble(1) < replayCorrectProbability
+                                      && !guessedCorrect.isEmpty());
+
+            System.out.println("correct terms : " + guessedCorrect);
+            System.out.println("replaying correct : " + addCorrectTerm);
+
+            int randomTermIndex;
+            if(addIncorrectTerm){
+                randomTermIndex = randomNumber.nextInt(guessedIncorrect.size());
+                randomTermTest.add(guessedIncorrect.get(randomTermIndex));
+                guessedIncorrect.remove(randomTermIndex);
+            } else if (addCorrectTerm){
+                randomTermIndex = randomNumber.nextInt(guessedCorrect.size());
+                randomTermTest.add(guessedCorrect.get(randomTermIndex));
+            } else {
+                randomTermIndex = randomNumber.nextInt(termList.size());
+                randomTermTest.add(termList.get(randomTermIndex));
+            }
         }
         return randomTermTest;
     }

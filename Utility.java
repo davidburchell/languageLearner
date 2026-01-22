@@ -13,7 +13,7 @@ public class Utility {
     public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
     public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
 
-    public static List<Term> readTermsFromFiles(List<String> fileNames, String learningMode){
+    public static List<Term> readTermsFromFiles(List<String> fileNames, String learningMode, List<String> cefrLevels){
         List<Term> terms = new ArrayList<>();
         for(int lcv = 0; lcv < fileNames.size(); lcv ++){
             File fileReader = new File(fileNames.get(lcv));
@@ -21,11 +21,15 @@ public class Utility {
                 Scanner fileScanner = new Scanner(fileReader);
                 String language = fileScanner.nextLine();
                 while(fileScanner.hasNextLine()){
-                    String pairing = fileScanner.nextLine();
-                    String [] englishAndForeign = pairing.split(" -- ");
-                    String englishMeaning = englishAndForeign[0];
-                    String foreignWord = englishAndForeign[1];
-                    Term newTerm = new Term(englishMeaning, foreignWord, language, learningMode);
+                    String row = fileScanner.nextLine();
+                    String [] rowSplit = row.split(" -- ");
+                    String cefrLevel = rowSplit[0];
+                    if(!cefrLevels.contains(cefrLevel)){
+                        continue;
+                    }
+                    String foreignWord = rowSplit[1];
+                    String englishMeaning = rowSplit[2];
+                    Term newTerm = new Term(englishMeaning, foreignWord, language, cefrLevel, learningMode);
                     terms.add(newTerm);
                 }
 

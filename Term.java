@@ -3,12 +3,14 @@ public class Term {
     private String englishMeaning;
     private String foreignWord;
     private String language;
+    private String cefrLevel;
     private String learningMode;
 
-    public Term(String englishMeaning, String foreignWord, String language, String learningMode) {
+    public Term(String englishMeaning, String foreignWord, String language, String cefrLevel, String learningMode) {
         this.englishMeaning = englishMeaning;
         this.foreignWord = foreignWord;
         this.language = language;
+        this.cefrLevel = cefrLevel;
         this.learningMode = learningMode;
     }
 
@@ -62,6 +64,14 @@ public class Term {
 
     public void setLearningMode(String learningMode) {
         this.learningMode = learningMode;
+    }
+
+    public String getCefrLevel() {
+        return cefrLevel;
+    }
+
+    public void setCefrLevel(String cefrLevel) {
+        this.cefrLevel = cefrLevel;
     }
 
     public boolean equals(Term other){
